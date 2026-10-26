@@ -658,51 +658,6 @@
   }
 }
 
-/* ProjectCard was restructured from <a> to <div>; keep the thumb a block-level
-   link so the existing height/hover rules still apply, and stop the title link
-   from picking up default anchor styling. */
-a.proj-thumb {
-  display: block;
-  text-decoration: none;
-}
-
-.proj-detail h4 a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.proj-detail h4 a:hover {
-  text-decoration: underline;
-}
-
-/* "Ask about this" button on project cards. */
-.proj-ask {
-  align-self: flex-start;
-  margin-top: 10px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.4px;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 999px;
-  padding: 5px 12px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.proj-ask:hover {
-  background: var(--pq-accent);
-  border-color: transparent;
-}
-
-/* "Ask AI" nav item — Nav.Link renders a <button>, strip the button chrome. */
-.navbar-ask-ai {
-  background: transparent !important;
-  border: none !important;
-  cursor: pointer;
-}
-
 /* Secondary CTA under the banner copy. Deliberately reuses .banner button's
    exact layout/typography/hover mechanics (App.css) — same flex+icon
    structure, same 0.3s ease-in-out svg slide on hover — just a smaller

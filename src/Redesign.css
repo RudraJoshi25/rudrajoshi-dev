@@ -9,10 +9,6 @@
   will-change: transform;
 }
 
-.pq-hero-copy {
-  will-change: transform, opacity;
-}
-
 /* ------------------------------ Skills --------------------------- */
 
 .skill {
@@ -149,12 +145,6 @@
   font-size: 13px;
   color: #b8b8b8;
   letter-spacing: 0.3px;
-}
-
-/* ------------------------- Reveal helper ------------------------- */
-
-.pq-reveal {
-  will-change: transform, opacity;
 }
 
 /* The astronaut keeps its float regardless of OS motion settings — the
