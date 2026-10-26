@@ -36,18 +36,6 @@
   margin-bottom: 26px;
 }
 
-.pq-skill-top {
-  margin-bottom: 10px;
-}
-
-.pq-skill-top h3 {
-  font-size: clamp(17px, 1.8vw, 22px);
-}
-
-.pq-skill-note {
-  margin: 0;
-}
-
 /* Scrollbar for the skill list — visible enough to signal "this scrolls",
    quiet enough not to fight the dark theme. */
 .pq-deck-scroll::-webkit-scrollbar {
@@ -102,49 +90,16 @@
   transform: translateX(6px);
 }
 
-.pq-skill-top {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 12px;
-}
-
-.pq-skill-top h3 {
+.pq-skill-row h3 {
   font-size: clamp(18px, 2vw, 24px);
   font-weight: 700;
   color: #fff;
+  margin-bottom: 12px;
 }
 
-.pq-skill-num {
-  font-size: 15px;
-  font-weight: 700;
-  color: #c98fd8;
-  letter-spacing: 0.5px;
-}
-
-.pq-skill-track {
-  height: 6px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  overflow: hidden;
-  margin-bottom: 10px;
-}
-
-.pq-skill-fill {
-  height: 100%;
-  width: 100%;
-  transform: scaleX(0);
-  transform-origin: left center;
-  border-radius: 999px;
-  background: linear-gradient(90.21deg, #aa367c -5.91%, #4a2fbd 111.58%);
-  will-change: transform;
-}
-
-.pq-skill-note {
-  font-size: 13px;
-  color: #b8b8b8;
-  letter-spacing: 0.3px;
+/* Chips reuse the project cards' .pq-show-stack look. */
+.pq-skill-row .pq-show-stack {
+  margin: 0;
 }
 
 /* The astronaut keeps its float regardless of OS motion settings — the

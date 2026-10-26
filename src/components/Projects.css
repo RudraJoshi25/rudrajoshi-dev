@@ -179,7 +179,7 @@
   padding: 0;
 }
 
-.pq-show-stack li {
+.pq-show-stack > * {
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.4px;
