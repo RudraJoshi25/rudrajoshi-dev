@@ -1,0 +1,73 @@
+/* Custom cursor — dot follows tight, ring lags, ring becomes a labelled
+   chip over data-cursor targets. Native cursor stays ON (we only add an
+   aura) so accessibility and misses are never worse than default. */
+
+.pq-cursor-dot,
+.pq-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 30000;
+  will-change: transform;
+}
+
+.pq-cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: #fff;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Dot stays visible under the chip — it marks the true click point,
+   which the offset pill no longer does. */
+.pq-cursor-dot-off {
+  opacity: 1;
+}
+
+.pq-cursor-ring {
+  width: 38px;
+  height: 38px;
+  margin: -19px 0 0 -19px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.25s ease, height 0.25s ease, margin 0.25s ease,
+    background 0.25s ease, border-color 0.25s ease, opacity 0.2s ease;
+}
+
+.pq-cursor-ring-hover {
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border-color: rgba(200, 95, 160, 0.85);
+}
+
+/* Pill, not a disc — it hugs the label instead of covering the artwork
+   the label is describing. */
+.pq-cursor-ring-chip {
+  width: auto;
+  height: 26px;
+  padding: 0 12px;
+  margin: -13px 0 0 16px;
+  border-radius: 999px;
+  background: linear-gradient(90.21deg, rgba(170, 54, 124, 0.95) -5.91%, rgba(74, 47, 189, 0.95) 111.58%);
+  border-color: transparent;
+}
+
+.pq-cursor-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #fff;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.pq-cursor-hidden {
+  opacity: 0;
+}

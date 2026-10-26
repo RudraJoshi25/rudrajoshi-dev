@@ -1,0 +1,92 @@
+.pq-tether {
+  position: absolute;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.pq-tether-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.pq-tether-line {
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+/* Travelling dash — the "this way" signal. */
+.pq-tether-flow {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: 14 246;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 5px rgba(196, 181, 253, 0.9));
+}
+
+.pq-tether-end {
+  fill: #f472b6;
+  filter: drop-shadow(0 0 7px rgba(244, 114, 182, 0.9));
+}
+
+/* ---------------- Hero / mid-section: trails downward --------------- */
+
+.pq-tether-descend {
+  right: 16%;
+  bottom: 0;
+  width: 130px;
+  height: 46vh;
+  max-height: 340px;
+}
+
+.pq-tether-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  color: #e6ddff;
+}
+
+.pq-tether-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pq-tether-chev {
+  width: 20px;
+  height: 20px;
+  color: #f472b6;
+}
+
+/* -------------- Final section: the cable arrives ------------------- */
+
+.pq-tether-arrive {
+  left: 6%;
+  top: 0;
+  width: 130px;
+  height: 42vh;
+  max-height: 300px;
+  opacity: 0.85;
+}
+
+@media (max-width: 899px) {
+  .pq-tether {
+    display: none;
+  }
+}

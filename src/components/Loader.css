@@ -1,0 +1,18 @@
+.pq-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  background: #121212;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pq-loader video {
+  width: min(820px, 88vw);
+  height: auto;
+}
+
+body.pq-no-scroll {
+  overflow: hidden;
+}

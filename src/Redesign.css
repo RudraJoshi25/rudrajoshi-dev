@@ -1,0 +1,173 @@
+/* ==================================================================
+   Redesign layer — GSAP-era styles for Hero, Skills, and shared bits.
+   Loaded after App.css so it can refine without rewriting it.
+   ================================================================== */
+
+/* ------------------------------- Hero ---------------------------- */
+
+.pq-hero-visual {
+  will-change: transform;
+}
+
+.pq-hero-copy {
+  will-change: transform, opacity;
+}
+
+/* ------------------------------ Skills --------------------------- */
+
+.skill {
+  position: relative;
+  overflow: hidden;
+}
+
+.pq-skills-inner {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 90px 0 60px;
+}
+
+.pq-skills-head h2 {
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.pq-skills-head p {
+  color: #b8b8b8;
+  font-size: 15px;
+  margin-bottom: 26px;
+}
+
+.pq-skill-top {
+  margin-bottom: 10px;
+}
+
+.pq-skill-top h3 {
+  font-size: clamp(17px, 1.8vw, 22px);
+}
+
+.pq-skill-note {
+  margin: 0;
+}
+
+/* Scrollbar for the skill list — visible enough to signal "this scrolls",
+   quiet enough not to fight the dark theme. */
+.pq-deck-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.pq-deck-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pq-deck-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+}
+
+.pq-deck-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.pq-deck-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+}
+
+/* Single-column list. When it outgrows the stage it scrolls normally
+   inside its own box (see .pq-deck-scroll in Deck.js) rather than being
+   cut off or handed to the section deck. */
+.pq-skill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  max-width: 880px;
+}
+
+.pq-skill-row {
+  flex: 0 0 auto;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 18px 22px;
+  cursor: pointer;
+  height: auto;
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+  will-change: transform, opacity;
+}
+
+.pq-skill-row:hover {
+  border-color: rgba(170, 54, 124, 0.55);
+  background: rgba(255, 255, 255, 0.055);
+  transform: translateX(6px);
+}
+
+.pq-skill-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.pq-skill-top h3 {
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 700;
+  color: #fff;
+}
+
+.pq-skill-num {
+  font-size: 15px;
+  font-weight: 700;
+  color: #c98fd8;
+  letter-spacing: 0.5px;
+}
+
+.pq-skill-track {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.pq-skill-fill {
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  border-radius: 999px;
+  background: linear-gradient(90.21deg, #aa367c -5.91%, #4a2fbd 111.58%);
+  will-change: transform;
+}
+
+.pq-skill-note {
+  font-size: 13px;
+  color: #b8b8b8;
+  letter-spacing: 0.3px;
+}
+
+/* ------------------------- Reveal helper ------------------------- */
+
+.pq-reveal {
+  will-change: transform, opacity;
+}
+
+/* The astronaut keeps its float regardless of OS motion settings — the
+   owner explicitly wants the site animated, and the OS-level reduce-motion
+   flag was silently freezing half the page. `!important` outranks any
+   UA/extension styles injected under that flag. */
+.banner img {
+  animation: updown 3s linear infinite !important;
+}
+
+@media (max-width: 899px) {
+  .pq-skills-inner {
+    min-height: 0;
+    padding: 70px 0 40px;
+  }
+}

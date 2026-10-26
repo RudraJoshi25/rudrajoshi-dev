@@ -1,0 +1,754 @@
+/* ==================================================================
+   PersonaQuery drawer — themed to the portfolio palette
+   bg #121212 / accent gradient #AA367C -> #4A2FBD / muted #B8B8B8
+   ================================================================== */
+
+:root {
+  --pq-accent: linear-gradient(90.21deg, #aa367c -5.91%, #4a2fbd 111.58%);
+  --pq-panel: #151515;
+  --pq-line: rgba(255, 255, 255, 0.12);
+  --pq-muted: #b8b8b8;
+}
+
+/* ------------------------------ Launcher -------------------------
+   Bounces on the same updown keyframes as the Banner astronaut
+   (App.css) so the two feel like one universe, not two widgets.
+   The bounce lives on -wrap; hover/press transforms live on the
+   button itself so the two transforms never fight.
+   ------------------------------------------------------------- */
+
+.pq-launcher-wrap {
+  position: fixed;
+  right: 26px;
+  bottom: 26px;
+  z-index: 10080;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: pq-updown 3s ease-in-out infinite;
+}
+
+/* While the drawer is open the launcher gets out of the way entirely —
+   it was overlapping the drawer's send button. The drawer has its own
+   close button, plus Escape and the scrim. */
+.pq-launcher-wrap-open {
+  animation-play-state: paused;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+@keyframes pq-updown {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.pq-launcher {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: transform 0.25s ease;
+}
+
+.pq-launcher:hover {
+  transform: scale(1.06);
+}
+
+.pq-launcher:active {
+  transform: scale(0.96);
+}
+
+/* Rotating aurora ring behind the glass core — the "orbit" accent. */
+.pq-launcher-orbit {
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  padding: 2px;
+  background: conic-gradient(from 0deg, #aa367c, #4a2fbd, #40b8ff, #aa367c);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: pq-spin 6s linear infinite;
+  opacity: 0.9;
+}
+
+.pq-launcher-open .pq-launcher-orbit {
+  opacity: 0.35;
+}
+
+@keyframes pq-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Glass core with the gradient glowing through it. */
+.pq-launcher-core {
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.28), transparent 45%),
+    var(--pq-accent);
+  box-shadow: 0 14px 38px rgba(74, 47, 189, 0.55), inset 0 0 14px rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pq-launcher-mark {
+  position: relative;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+}
+
+.pq-launcher-open .pq-launcher-mark {
+  font-size: 26px;
+  font-weight: 400;
+}
+
+/* Slow outward pulse layered on top of the spin, so the orb still reads
+   as "alive" even when the visitor isn't looking right at it. */
+.pq-launcher-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(170, 54, 124, 0.7);
+  animation: pq-pulse 2.8s ease-out infinite;
+}
+
+.pq-launcher-open .pq-launcher-ring {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes pq-pulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.85;
+  }
+  70% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Two little stars orbiting the button — echoes the starfield background. */
+.pq-launcher-spark {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.8);
+  top: 50%;
+  left: 50%;
+  animation: pq-orbit 5.5s linear infinite;
+}
+
+.pq-launcher-spark.pq-spark-2 {
+  animation-duration: 8s;
+  animation-direction: reverse;
+  width: 3px;
+  height: 3px;
+  opacity: 0.7;
+}
+
+@keyframes pq-orbit {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg) translateX(40px) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg) translateX(40px) rotate(-360deg);
+  }
+}
+
+.pq-tip {
+  background: #fff;
+  color: #121212;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 9px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  animation: pq-tip-in 0.35s ease;
+}
+
+@keyframes pq-tip-in {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* -------------------------------- Scrim -------------------------- */
+
+.pq-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+  /* nav.navbar (App.css) sits at z-index 9999 and is fixed/full-width, so
+     the scrim + drawer must clear it or the nav icons and "Let's Connect"
+     button float unstyled above the dimmed page while the drawer is open. */
+  z-index: 10060;
+}
+
+.pq-scrim-on {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* -------------------------------- Drawer ------------------------- */
+
+.pq-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 430px;
+  max-width: 100vw;
+  background: var(--pq-panel);
+  border-left: 1px solid var(--pq-line);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(105%);
+  /* visibility keeps the closed drawer out of the tab order, which matters
+     because it stays mounted for the slide animation */
+  visibility: hidden;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0.32s;
+  z-index: 10070;
+  box-shadow: -24px 0 70px rgba(0, 0, 0, 0.6);
+}
+
+.pq-drawer-open {
+  transform: none;
+  visibility: visible;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s;
+}
+
+/* ---------------------------------- Head ------------------------- */
+
+.pq-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 18px 14px;
+  border-bottom: 1px solid var(--pq-line);
+}
+
+.pq-head-id {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pq-head-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--pq-accent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.pq-head-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.4px;
+}
+
+.pq-head-title span {
+  background: var(--pq-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.pq-head-sub {
+  font-size: 11px;
+  color: var(--pq-muted);
+  letter-spacing: 0.3px;
+}
+
+.pq-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pq-ghost-btn {
+  background: transparent;
+  border: 1px solid var(--pq-line);
+  color: var(--pq-muted);
+  border-radius: 8px;
+  font-size: 12px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.pq-ghost-btn:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* ---------------------------------- Body ------------------------- */
+
+.pq-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pq-welcome p {
+  color: #e8e8e8;
+  font-size: 14px;
+  line-height: 1.65;
+  margin: 0 0 12px;
+}
+
+.pq-welcome-note {
+  font-size: 12px;
+  color: var(--pq-muted);
+  border-left: 2px solid rgba(170, 54, 124, 0.8);
+  padding-left: 10px;
+  line-height: 1.55;
+}
+
+.pq-msg {
+  display: flex;
+  width: 100%;
+}
+
+.pq-msg-user {
+  justify-content: flex-end;
+}
+
+.pq-msg-assistant {
+  justify-content: flex-start;
+}
+
+.pq-bubble {
+  max-width: 86%;
+  border-radius: 16px;
+  padding: 11px 14px;
+  border: 1px solid var(--pq-line);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.pq-msg-user .pq-bubble {
+  background: var(--pq-accent);
+  border-color: transparent;
+}
+
+.pq-bubble-failed {
+  border-color: rgba(255, 120, 120, 0.4);
+}
+
+.pq-bubble-text {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #f0f0f0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* --------------------------- Citation chips ---------------------- */
+
+.pq-cite {
+  display: inline-block;
+  vertical-align: baseline;
+  margin: 0 2px;
+  padding: 1px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--pq-muted);
+  cursor: default;
+}
+
+.pq-cite-link {
+  cursor: pointer;
+  border-color: rgba(170, 54, 124, 0.75);
+  color: #fff;
+}
+
+.pq-cite-link:hover {
+  background: var(--pq-accent);
+  border-color: transparent;
+}
+
+/* ------------------------------- Sources ------------------------- */
+
+.pq-sources {
+  margin-top: 10px;
+  border-top: 1px solid var(--pq-line);
+  padding-top: 8px;
+}
+
+.pq-sources summary {
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--pq-muted);
+  letter-spacing: 0.4px;
+}
+
+.pq-sources ul {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pq-sources li {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--pq-line);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+
+.pq-source-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 11px;
+  color: #e0e0e0;
+}
+
+.pq-source-id {
+  color: var(--pq-muted);
+}
+
+.pq-source-name {
+  font-weight: 600;
+}
+
+.pq-source-meta {
+  color: var(--pq-muted);
+}
+
+.pq-source-jump {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #d98fc0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.pq-source-jump:hover {
+  color: #fff;
+}
+
+.pq-source-snip {
+  margin-top: 6px;
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--pq-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ------------------------------- Typing -------------------------- */
+
+.pq-typing {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.pq-typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pq-muted);
+  animation: pq-bounce 1.2s infinite ease-in-out;
+}
+
+.pq-typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.pq-typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes pq-bounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  30% {
+    transform: translateY(-5px);
+    opacity: 1;
+  }
+}
+
+/* -------------------------------- Foot --------------------------- */
+
+.pq-foot {
+  border-top: 1px solid var(--pq-line);
+  padding: 12px 16px 16px;
+  background: #121212;
+}
+
+.pq-error {
+  font-size: 12px;
+  color: #ff9d9d;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.pq-prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 11px;
+}
+
+.pq-prompt {
+  font-size: 12px;
+  color: #e4e4e4;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--pq-line);
+  border-radius: 999px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.pq-prompt:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.pq-inputbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--pq-line);
+  border-radius: 999px;
+  padding: 5px 5px 5px 16px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.pq-inputbar input {
+  flex: 1 1 auto;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+  min-width: 0;
+}
+
+.pq-inputbar input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.pq-inputbar:focus-within {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.pq-char-count {
+  flex: 0 0 auto;
+  font-size: 11px;
+  color: var(--pq-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.pq-char-count-warn {
+  color: #ffb4b4;
+}
+
+.pq-send {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: var(--pq-accent);
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.pq-send:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pq-handoff {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  background: var(--pq-accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* --------------------------- Page integration -------------------- */
+
+/* Flash applied to a section when the visitor taps a citation chip. */
+.pq-flash {
+  animation: pq-flash-kf 1.7s ease;
+}
+
+@keyframes pq-flash-kf {
+  0% {
+    box-shadow: inset 0 0 0 0 rgba(170, 54, 124, 0);
+  }
+  25% {
+    box-shadow: inset 0 0 90px 0 rgba(170, 54, 124, 0.28);
+  }
+  100% {
+    box-shadow: inset 0 0 0 0 rgba(170, 54, 124, 0);
+  }
+}
+
+/* ProjectCard was restructured from <a> to <div>; keep the thumb a block-level
+   link so the existing height/hover rules still apply, and stop the title link
+   from picking up default anchor styling. */
+a.proj-thumb {
+  display: block;
+  text-decoration: none;
+}
+
+.proj-detail h4 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.proj-detail h4 a:hover {
+  text-decoration: underline;
+}
+
+/* "Ask about this" button on project cards. */
+.proj-ask {
+  align-self: flex-start;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.proj-ask:hover {
+  background: var(--pq-accent);
+  border-color: transparent;
+}
+
+/* "Ask AI" nav item — Nav.Link renders a <button>, strip the button chrome. */
+.navbar-ask-ai {
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer;
+}
+
+/* Secondary CTA under the banner copy. Deliberately reuses .banner button's
+   exact layout/typography/hover mechanics (App.css) — same flex+icon
+   structure, same 0.3s ease-in-out svg slide on hover — just a smaller
+   margin-top so it reads as a second line under "Let's Connect" rather
+   than a mismatched block. */
+.banner .pq-banner-cta {
+  margin-top: 18px;
+  font-size: 16px;
+  background: var(--pq-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.banner .pq-banner-cta svg {
+  /* icon itself can't inherit the gradient text-fill trick, so give it a
+     solid color pulled from the same gradient */
+  color: #c85fa0;
+}
+
+/* ------------------------------- Mobile -------------------------- */
+
+@media (max-width: 640px) {
+  .pq-drawer {
+    width: 100%;
+    height: 88vh;
+    top: auto;
+    bottom: 0;
+    border-left: none;
+    border-top: 1px solid var(--pq-line);
+    border-radius: 20px 20px 0 0;
+    transform: translateY(105%);
+  }
+
+  .pq-drawer-open {
+    transform: none;
+    visibility: visible;
+  }
+
+  .pq-launcher-wrap {
+    right: 18px;
+    bottom: 18px;
+  }
+
+  .pq-launcher {
+    width: 54px;
+    height: 54px;
+  }
+}

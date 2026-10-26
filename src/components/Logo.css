@@ -1,0 +1,165 @@
+/* ==================================================================
+   RJ mark — same construction as the PersonaQuery launcher orb:
+   conic-gradient ring, gradient glass core, glowing dots on the ring.
+   ================================================================== */
+
+.pq-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.pq-logo-mark {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  flex: 0 0 auto;
+  display: inline-block;
+}
+
+/* Bright ring, drawn as a masked conic gradient so it glows around the
+   whole circumference rather than sitting flat. */
+.pq-logo-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  padding: 2px;
+  background: conic-gradient(from 0deg, #aa367c, #4a2fbd, #7fb2ff, #c4b5fd, #aa367c);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: pq-logo-spin 8s linear infinite;
+}
+
+@keyframes pq-logo-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Interior stays open like the original artwork — just a faint purple
+   haze, not a filled disc. Only the ring and orbit borrow the PQ look. */
+.pq-logo-core {
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 45%, rgba(74, 47, 189, 0.32), rgba(18, 15, 36, 0.12) 72%);
+}
+
+.pq-logo-initials {
+  font-family: 'Centra', sans-serif;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: #fff;
+}
+
+/* Three dots riding the ring. The wrapper rotates; each dot is pushed
+   out to the ring radius, so they track the circle exactly. */
+.pq-logo-orbit {
+  position: absolute;
+  inset: 0;
+  animation: pq-logo-spin 14s linear infinite;
+}
+
+.pq-logo-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 8px 2px rgba(196, 181, 253, 0.95);
+}
+
+.pq-logo-dot-1 {
+  transform: rotate(0deg) translateY(-27px);
+}
+
+.pq-logo-dot-2 {
+  transform: rotate(130deg) translateY(-27px);
+}
+
+.pq-logo-dot-3 {
+  transform: rotate(240deg) translateY(-27px);
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+}
+
+.pq-logo:hover .pq-logo-orbit {
+  animation-duration: 4s;
+}
+
+.pq-logo-word {
+  font-family: 'Centra', sans-serif;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #fff;
+}
+
+/* ------------------------------ Compact --------------------------- */
+
+.pq-logo-compact .pq-logo-mark {
+  width: 46px;
+  height: 46px;
+}
+
+.pq-logo-compact .pq-logo-initials {
+  font-size: 18px;
+}
+
+.pq-logo-compact .pq-logo-dot {
+  transform: rotate(0deg) translateY(-23px);
+}
+
+/* --------------------------- In the navbar ----------------------- */
+
+nav.navbar .navbar-brand {
+  width: auto !important;
+  padding: 0;
+  background: transparent;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+nav.navbar .navbar-brand:hover .pq-logo-word {
+  color: #c98fd8;
+  transition: color 0.25s ease;
+}
+
+@media (max-width: 767px) {
+  .pq-logo-word {
+    font-size: 17px;
+  }
+
+  .pq-logo-mark {
+    width: 46px;
+    height: 46px;
+  }
+
+  .pq-logo-initials {
+    font-size: 18px;
+  }
+
+  .pq-logo-dot {
+    transform: rotate(0deg) translateY(-23px);
+  }
+
+  .pq-logo-dot-2 {
+    transform: rotate(130deg) translateY(-23px);
+  }
+
+  .pq-logo-dot-3 {
+    transform: rotate(240deg) translateY(-23px);
+  }
+}

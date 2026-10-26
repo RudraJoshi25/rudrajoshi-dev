@@ -1,0 +1,79 @@
+/* Full-page deck: viewport-locked stage, sections stacked and swapped. */
+
+.pq-deck {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #121212;
+}
+
+.pq-deck > .pq-deck-sec {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  will-change: transform;
+  /* Opaque: without this the outgoing section shows through the incoming
+     one mid-transition, which reads as a lag/overlap glitch. */
+  background: #121212;
+}
+
+/* Sections must fill the stage and center their content. */
+.pq-deck .banner,
+.pq-deck .skill,
+.pq-deck .contact,
+.pq-deck .pq-show {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 96px;
+  padding-bottom: 30px;
+  margin: 0;
+  overflow: hidden;
+  /* anchor for the absolutely-positioned tether + click-star layers */
+  position: relative;
+}
+
+.pq-deck .banner {
+  padding-top: 70px;
+}
+
+/* Skills: header fixed, grid takes the remaining height. If the list ever
+   outgrows the stage it scrolls inside its own box rather than pushing the
+   section off-screen — that's what lets more skills be added later. */
+.pq-deck .skill .container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.pq-deck .pq-skills-inner {
+  min-height: 0;
+  height: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* The list scrolls itself once it outgrows the stage. Deck.js checks this
+   container first on every wheel event and only advances the section once
+   the list has hit top/bottom, so a long list never gets cut off. */
+.pq-deck .pq-skill-list {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  min-height: 0;
+  padding: 4px 12px 4px 2px;
+}
+
+.pq-deck .pq-show {
+  justify-content: flex-start;
+}
+
+/* ------------- Mobile fallback: normal document flow ------------- */
+
+.pq-deck-flow .pq-deck-sec > section {
+  min-height: 100vh;
+}
