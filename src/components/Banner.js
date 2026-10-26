@@ -66,7 +66,7 @@ export const Banner = ({ ready = true }) => {
           <Col xs={12} md={6} xl={7}>
             <div className="pq-hero-stagger">
               <span className="tagline">Welcome to my Portfolio</span>
-              <h1>{`Hi! I'm `} <span className="txt-rotate" dataPeriod="1000" data-rotate='[ "Rudra Joshi" , "a Web Developer", "a Web Designer", "UI/UX Designer" ]'><span className="wrap">{text}</span></span></h1>
+              <h1>{`Hi! I'm `} <span className="txt-rotate"><span className="wrap">{text}</span></span></h1>
               <p>This is my digital frontier. I am a software developer exploring the vast landscape of Machine Learning and Big Data. Driven by curiosity and a passion for innovation, I build intelligent solutions that push the boundaries of what technology can achieve.</p>
               <button style={{ outline: 'none' }} data-cursor="link" onClick={() => goToSection('connect')}>
                 Let's Connect <ArrowRightCircle size={25} />
