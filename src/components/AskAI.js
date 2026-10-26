@@ -58,15 +58,15 @@ const ERROR_COPY = {
   ],
   timeout: [
     "The assistant took too long to answer.",
-    "The server didn't wake up in time. Try again in a moment — or use the contact form, which always works.",
+    "The server didn't wake up in time. Try again in a moment, or email Rudra directly.",
   ],
   server: [
     "The assistant hit an error.",
-    "Something went wrong on my side. Try again, or use the contact form at the bottom of the page.",
+    "Something went wrong on my side. Try again, or email Rudra directly (link at the bottom of the page).",
   ],
   network: [
     "Couldn't reach the assistant just now.",
-    "I'm having trouble reaching my backend right now. The contact form at the bottom of the page always works.",
+    "I'm having trouble reaching my backend right now. You can always email Rudra directly (link at the bottom of the page).",
   ],
 };
 
@@ -257,7 +257,7 @@ export const AskAI = () => {
 
     if (capReached) {
       setError(
-        "That's the question limit for this session — the contact form below is the fastest way to reach Rudra directly."
+        "That's the question limit for this session — email is the fastest way to reach Rudra directly."
       );
       return;
     }
@@ -276,7 +276,7 @@ export const AskAI = () => {
           role: "assistant",
           content:
             answer ||
-            "I couldn't find anything in Rudra's documents that answers that. Try rephrasing, or use the contact form to ask him directly.",
+            "I couldn't find anything in Rudra's documents that answers that. Try rephrasing, or email him directly.",
           sources,
         },
       ]);

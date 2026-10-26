@@ -1,9 +1,7 @@
 /**
  * PersonaQuery API client.
  *
- * Talks directly to the FastAPI backend (Render). Note this is a DIFFERENT
- * service from REACT_APP_API_URL, which points at the Express/nodemailer
- * server used by the contact form.
+ * Talks directly to the FastAPI backend (Render).
  */
 
 const DEFAULT_BASE = "http://127.0.0.1:8000";
