@@ -69,15 +69,15 @@ const PANELS = {
       askPrompt: "Summarise the Cognitive Chair research paper — methodology and results.",
     },
     {
-      title: "Patent",
+      title: "Patent Application",
       tag: "Intellectual Property",
       description:
-        "Filed patent building on the assistive-mobility work. No public link yet — but the AI has read the full document, so ask it for the plain-English version of what's actually claimed.",
-      stack: ["Assistive tech", "Filed"],
+        "Indian patent application 202211058943 A, building on the assistive-mobility work. Filed 15 Oct 2022 and published in Patent Office Journal 42/2022 on 21 Oct 2022. The AI has read the full document, so ask it for the plain-English version of what it claims.",
+      stack: ["Assistive tech", "Published application", "IN 202211058943 A"],
       imgUrl: chairImg,
       url: null,
       cta: null,
-      askPrompt: "Explain the patent in plain English — what does it actually claim?",
+      askPrompt: "Explain the patent application in plain English — what does it claim?",
     },
   ],
 };
